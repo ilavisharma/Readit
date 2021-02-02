@@ -5,11 +5,13 @@ import {
   BeforeInsert,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
 import AbstractEntity from "./AbstractEntity";
 import User from "./User";
 import { makeId, slugify } from "../utils/helpers";
 import Sub from "./Sub";
+import Comment from "./Comment";
 
 @Entity("posts")
 export default class Post extends AbstractEntity {
@@ -42,6 +44,9 @@ export default class Post extends AbstractEntity {
   @ManyToOne(() => Sub, (sub) => sub.posts)
   @JoinColumn({ name: "subName", referencedColumnName: "name" })
   sub: Sub;
+
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments: Comment[];
 
   @BeforeInsert()
   makeIdandSlug() {
