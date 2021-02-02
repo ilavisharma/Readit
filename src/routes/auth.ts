@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { validate, isEmpty } from "class-validator";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";
-import { User } from "../entities/User";
+import User from "../entities/User";
 import auth from "../middleware/auth";
 
 const register = async (req: Request, res: Response) => {

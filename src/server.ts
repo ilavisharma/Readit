@@ -8,6 +8,8 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 import authRoutes from "./routes/auth";
+import postRoutes from "./routes/posts";
+import subRoutes from "./routes/subs";
 import trim from "./middleware/trim";
 
 const app = express();
@@ -22,6 +24,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/post", postRoutes);
+app.use("/api/sub", subRoutes);
 
 const { PORT } = process.env;
 app.listen(PORT, async () => {
