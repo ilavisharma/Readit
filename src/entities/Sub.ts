@@ -1,18 +1,13 @@
-import { IsEmail, Length } from "class-validator";
 import {
   Entity,
   Column,
   Index,
-  BeforeInsert,
   ManyToOne,
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import bcrypt from "bcryptjs";
-import { Exclude } from "class-transformer";
 import AbstractEntity from "./AbstractEntity";
 import User from "./User";
-import { makeId, slugify } from "../utils/helpers";
 import Post from "./Post";
 
 @Entity("subs")
