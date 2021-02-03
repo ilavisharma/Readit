@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import cookie from "cookie";
 import User from "../entities/User";
 import auth from "../middleware/auth";
+import { mapErrors } from "../utils/helpers";
 
 const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
@@ -22,7 +23,7 @@ const register = async (req: Request, res: Response) => {
     const newUser = new User({ email, username, password });
     errors = await validate(newUser);
     if (errors.length > 0) {
-      return res.status(400).json(errors);
+      return res.status(400).json(mapErrors(errors));
     }
     await newUser.save();
     return res.json(newUser);
@@ -48,7 +49,7 @@ const login = async (req: Request, res: Response) => {
       return res.status(401).json({ password: "Password is incorrect" });
     }
     const token = jwt.sign({ username }, process.env.JWT_SECRET!);
-    return res.set(
+    res.set(
       "Set-Cookie",
       cookie.serialize("token", token, {
         httpOnly: true,
@@ -58,7 +59,7 @@ const login = async (req: Request, res: Response) => {
         path: "/",
       })
     );
-    res.json(user);
+    return res.json(user);
   } catch (err) {
     console.log(err);
     return res.json({ error: "Something went wrong" });

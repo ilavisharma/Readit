@@ -29,3 +29,10 @@ export function slugify(str: string) {
     .replace(/-+$/, "") // trim - from end of text
     .replace(/-/g, "_");
 }
+
+export function mapErrors(errors: Object[]) {
+  return errors.reduce((prev: any, err: any) => {
+    prev[err.property] = Object.entries(err.constraints)[0][1];
+    return prev;
+  }, {});
+}
