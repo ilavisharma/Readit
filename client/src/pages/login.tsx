@@ -13,14 +13,10 @@ const login = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      await axios.post(
-        "/auth/login",
-        {
-          password,
-          username,
-        },
-        { withCredentials: true }
-      );
+      await axios.post("/auth/login", {
+        password,
+        username,
+      });
       router.push("/");
     } catch (err) {
       console.log(err);
@@ -29,7 +25,7 @@ const login = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex bg-white">
       <Head>
         <title>Login</title>
       </Head>

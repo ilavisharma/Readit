@@ -32,7 +32,7 @@ const register = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex  bg-white">
       <Head>
         <title>Register</title>
       </Head>
@@ -41,7 +41,7 @@ const register = () => {
         className="h-screen bg-center bg-cover w-36"
         style={{ backgroundImage: "url('images/bricks.jpg')" }}
       ></div>
-      <div className="flex flex-col justify-center pl-6">
+      <div className="flex flex-col justify-center pl-6 ">
         <div className="w-70">
           <h1 className="mb-2 text-lg font-medium">Sign Up</h1>
           <p className="mb-10 text-xs">
