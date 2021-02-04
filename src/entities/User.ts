@@ -3,6 +3,7 @@ import { Entity, Column, Index, BeforeInsert, OneToMany } from "typeorm";
 import bcrypt from "bcryptjs";
 import { Exclude } from "class-transformer";
 import AbstractEntity from "./AbstractEntity";
+import Vote from "./Post";
 import Post from "./Post";
 
 @Entity("users")
@@ -30,6 +31,9 @@ export default class User extends AbstractEntity {
 
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @OneToMany(() => Vote, (vote) => vote.user)
+  votes: Vote[];
 
   @BeforeInsert()
   async hashPassword() {
