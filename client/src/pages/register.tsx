@@ -1,9 +1,10 @@
 import { FormEvent, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import router from "next/router";
+import { useRouter } from "next/router";
 import axios from "axios";
 import InputGroup from "../components/InputGroup";
+import { useAuthState } from "../Context/AuthContext";
 
 const register = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,11 @@ const register = () => {
   const [password, setPassword] = useState("");
   const [agreement, setAgreement] = useState(false);
   const [errors, setErrors] = useState<any>({});
+
+  const router = useRouter();
+
+  const { authenticated } = useAuthState();
+  if (authenticated) router.push("/");
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -32,7 +38,7 @@ const register = () => {
   };
 
   return (
-    <div className="flex  bg-white">
+    <div className="flex bg-white">
       <Head>
         <title>Register</title>
       </Head>

@@ -2,7 +2,7 @@ import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-
+import { AuthProvider } from "../Context/AuthContext";
 import "../styles/tailwind.css";
 import "../styles/icons.css";
 
@@ -14,10 +14,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   const authRoutes = ["/register", "/login"];
   const authRoute = authRoutes.includes(pathname);
   return (
-    <>
+    <AuthProvider>
       {!authRoute && <Navbar />}
       <Component {...pageProps} />
-    </>
+    </AuthProvider>
   );
 }
 
