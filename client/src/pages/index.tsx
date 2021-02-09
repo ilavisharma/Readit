@@ -1,35 +1,25 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Head from "next/head";
-
-import { Post } from "../types";
+import useSwr from "swr";
 import PostCard from "../components/PostCard";
 
 const Index = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-
-  useEffect(() => {
-    axios
-      .get("/posts")
-      .then((res) => setPosts(res.data))
-      .catch(console.log);
-  }, []);
+  const { data: posts } = useSwr("/posts");
 
   return (
-    <div className="pt-12">
+    <>
       <Head>
         <title>readit: the frontpage of the internet</title>
       </Head>
       <div className="container flex pt-4">
         {/* Posts feed */}
         <div className="w-160">
-          {posts.map((post) => (
+          {posts?.map((post) => (
             <PostCard key={post.identifier} post={post} />
           ))}
         </div>
         {/* SIdebar */}
       </div>
-    </div>
+    </>
   );
 };
 
