@@ -1,9 +1,11 @@
+import axios from "axios";
+import { GetServerSideProps } from "next";
 import Head from "next/head";
 import useSwr from "swr";
 import PostCard from "../components/PostCard";
 
-const Index = () => {
-  const { data: posts } = useSwr("/posts");
+const Index = (initialData) => {
+  const { data: posts } = useSwr("/posts", { initialData: initialData.posts });
 
   return (
     <>
@@ -23,13 +25,13 @@ const Index = () => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   try {
-//     const res = await axios.get("/posts");
-//     return { props: { posts: res.data } };
-//   } catch (err) {
-//     return { props: { error: "Something went wrong" } };
-//   }
-// };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  try {
+    const res = await axios.get("/posts");
+    return { props: { posts: res.data } };
+  } catch (err) {
+    return { props: { error: "Something went wrong" } };
+  }
+};
 
 export default Index;
